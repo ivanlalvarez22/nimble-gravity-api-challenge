@@ -1,0 +1,107 @@
+.job-card {
+  background: var(--ng-surface);
+  border: 1px solid var(--ng-border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.job-card:hover {
+  border-color: var(--ng-teal);
+  box-shadow: 0 4px 20px rgba(46, 196, 182, 0.08);
+}
+
+.job-card__title {
+  margin: 0 0 0.25rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ng-white);
+}
+
+.job-card__id {
+  margin: 0 0 1rem;
+  font-size: 0.8rem;
+  font-family: "Roboto Mono", monospace;
+  color: var(--ng-text-muted);
+}
+
+.job-card__form {
+  display: flex;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.job-card__input {
+  flex: 1;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--ng-border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: "Roboto Mono", monospace;
+  color: var(--ng-text-primary);
+  background: var(--ng-plum-dark);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.job-card__input::placeholder {
+  color: var(--ng-text-muted);
+}
+
+.job-card__input:focus {
+  border-color: var(--ng-teal);
+  box-shadow: 0 0 0 3px rgba(46, 196, 182, 0.15);
+}
+
+.job-card__input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.job-card__button {
+  padding: 0.6rem 1.5rem;
+  background: var(--ng-teal);
+  color: var(--ng-plum-dark);
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  white-space: nowrap;
+}
+
+.job-card__button:hover:not(:disabled) {
+  background: #25b0a3;
+}
+
+.job-card__button:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.job-card__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.job-card__button--success {
+  background: var(--ng-success);
+}
+
+.job-card__error {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  color: var(--ng-error);
+}
+
+.job-card__success {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  color: var(--ng-success);
+}
+
+@media (max-width: 520px) {
+  .job-card__form {
+    flex-direction: column;
+  }
+}

@@ -1,35 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useCandidate } from "./hooks/useCandidate";
+import { useJobs } from "./hooks/useJobs";
+import { ErrorMessage } from "./components/ErrorMessage";
+import { JobList } from "./components/JobList";
+import { Spinner } from "./components/Spinner";
+import "./App.css";
+
+const CANDIDATE_EMAIL = "ivanlalvarez.22@gmail.com";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { candidate, loading: candidateLoading, error: candidateError } = useCandidate(CANDIDATE_EMAIL);
+  const { jobs, loading: jobsLoading, error: jobsError } = useJobs();
+
+  const isLoading = candidateLoading || jobsLoading;
+  const error = candidateError || jobsError;
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+    <div className="app">
+      <header className="app__header">
+        <h1 className="app__title">Nimble Gravity</h1>
+        <p className="app__subtitle">Open Positions</p>
+      </header>
+
+      <main className="app__content">
+        {candidate && (
+          <p className="app__welcome">
+            Welcome, <strong>{candidate.firstName} {candidate.lastName}</strong>
+          </p>
+        )}
+
+        {isLoading && <Spinner />}
+        {error && <ErrorMessage message={error} />}
+        {!isLoading && !error && candidate && (
+          <JobList jobs={jobs} candidate={candidate} />
+        )}
+      </main>
+
+      <footer className="app__footer">
+        <p className="app__footer-text">
+          Hecho con <span className="app__heart">💛</span> por{" "}
+          <a
+            href="https://ivan-alvarez.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="app__footer-link"
+          >
+            Iván Alvarez
+          </a>
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      </footer>
+    </div>
+  );
 }
 
-export default App
+export default App;
